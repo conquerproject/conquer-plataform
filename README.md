@@ -1,1 +1,1 @@
-# conquer-plataform
+# conquer-platform
