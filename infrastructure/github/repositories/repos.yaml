@@ -9,6 +9,7 @@ repos:
     allow_squash_merge: false
     allow_rebase_merge: true
     has_wiki: true
+    has_issues: true
       
   tf-modules:
     description: "Terraform modules repository"
@@ -16,6 +17,7 @@ repos:
     allow_merge_commit: false
     allow_squash_merge: false
     allow_rebase_merge: true
+    has_issues: true
 
   reusable-workflows:
     description: "All the reusable workflows for the Conquer Project are here"
@@ -23,6 +25,7 @@ repos:
     allow_merge_commit: false
     allow_squash_merge: false
     allow_rebase_merge: true
+    has_issues: true
 
   helm-charts:
     description: "Chart repository for the Conquer Project"
@@ -30,4 +33,4 @@ repos:
     allow_merge_commit: false
     allow_squash_merge: false
     allow_rebase_merge: true
-
+    has_issues: true
