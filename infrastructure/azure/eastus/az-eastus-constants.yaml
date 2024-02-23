@@ -3,4 +3,4 @@ region: "eastus"
 environment: "dev"
 
 tags:
-  environment: "dev" 
+  environment: "dev"
