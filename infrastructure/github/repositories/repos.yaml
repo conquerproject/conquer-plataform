@@ -3,14 +3,14 @@ gh_organization: "conquerproject"
 
 repos:
   conquer-platform:
-    description: "The Conquer Platform is your dedicated Cloud Platform engineered to accelerate services development and operations"    
+    description: "The Conquer Platform is your dedicated Cloud Platform engineered to accelerate services development and operations"
     visibility: "public"
     allow_merge_commit: false
     allow_squash_merge: false
     allow_rebase_merge: true
     has_wiki: true
     has_issues: true
-      
+
   tf-modules:
     description: "Terraform modules repository"
     visibility: "public"
@@ -33,4 +33,12 @@ repos:
     allow_merge_commit: false
     allow_squash_merge: false
     allow_rebase_merge: true
+    has_issues: true
+  votingapp:
+    description: "Sample app for testing purposes - https://github.com/dockersamples/example-voting-app"
+    visibility: "public"
+    allow_merge_commit: false
+    allow_squash_merge: false
+    allow_rebase_merge: true
+    has_wiki: true
     has_issues: true
