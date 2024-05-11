@@ -1,0 +1,13 @@
+name: "destroy-ephemeral-resources"
+on:
+  schedule:
+    - cron: "0 12 * * 1,5" # Every 12h UTC from Mon to Fri
+  workflow_dispatch:
+    inputs:
+      terragrunt_glob_pattern:
+        description: "Match terragrunt.hcl files of the Ephemeral Resources"
+        type: string
+        required: true
+        default: "infrastructure/*/"
+
+jobs:

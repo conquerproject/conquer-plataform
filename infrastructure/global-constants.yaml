@@ -1,9 +1,6 @@
 maintainers:
   - "benhur-sre_outlook.com#EXT#@benhursreoutlook328.onmicrosoft.com"
-  - "felipesb.borges_gmail.com#EXT#@benhursreoutlook328.onmicrosoft.com"
-  - "leohauschild_outlook.com#EXT#@benhursreoutlook328.onmicrosoft.com"
 
 global-tags:
   project: conquerproject
-  team: conquerors
-  team-email: conquerproject.io@gmail.com
+  owner: benhur

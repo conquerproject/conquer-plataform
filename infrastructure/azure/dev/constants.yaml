@@ -1,0 +1,9 @@
+subscription_id: 907cde31-ecc8-45c6-adb3-3c86455c885b
+region: eastus
+environment: dev
+default_rg: rg-conquerplatform-dev-01
+default_vnet: vnet-conquerplatform-dev-01
+default_stg: stgconquerplatformdev01
+
+tags:
+  environment: dev
