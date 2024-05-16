@@ -5,13 +5,14 @@ set -euo pipefail   # -u: unset variables cause an error.
                     # -e: abort execution if any command return exit code != 0
                     # -o pipefail: If any command in a pipeline fails, that return code will be used as the return code of the whole pipeline
 
-argo_appset_manifest="../applicationsets/tools/argocd.yaml"
-root_app_manifest="../applications/root.yaml"
-namespace="$(grep "^  namespace:" $argo_appset_manifest | awk '{print $2}' | sed 's/"//g')"
-helm_release="$(grep "releaseName" $argo_appset_manifest | awk '{print $2}' | sed 's/"//g')"
-chart_repo="$(grep "source:" -A3 $argo_appset_manifest | grep repoURL | awk '{print $2}' | sed 's/"//g')"
-chart_name="$(grep "source:" -A3 $argo_appset_manifest | grep chart | awk '{print $2}' | sed 's/"//g')"
-chart_version="$(grep "source:" -A3 $argo_appset_manifest | grep targetRevision | awk '{print $2}' | sed 's/"//g')"
+argo_appset="$(git rev-parse --show-toplevel)/argocd/applicationsets/tools/argocd.yaml"
+root_app="$(git rev-parse --show-toplevel)/argocd/applications/root.yaml"
+
+namespace="$(yq -r .metadata.namespace "$argo_appset")"
+chart_repo="$(yq -r .spec.template.spec.source.repoURL "$argo_appset")"
+chart_name="$(yq -r .spec.template.spec.source.chart "$argo_appset")"
+chart_version="$(yq -r .spec.template.spec.source.targetRevision "$argo_appset")"
+helm_release="$(yq -r .spec.template.spec.source.helm.releaseName "$argo_appset")"
 
 # Install ArgoCD
 install_argo() {
@@ -28,7 +29,7 @@ install_argo() {
 }
 
 apply_root_app() {
-    kubectl apply -f "$root_app_manifest"
+    kubectl apply -f "$root_app"
 }
 
 # Get default admin password
