@@ -1,4 +1,4 @@
-clusterName: "aks-conquerproject-dev-eastus-01"
+clusterName: "aks-conquerproject-dev-01"
 environment: "dev"
 server: "https://kubernetes.default.svc"
 revision: "HEAD"
