@@ -8,11 +8,11 @@ set -euo pipefail   # -u: unset variables cause an error.
 argo_appset="$(git rev-parse --show-toplevel)/argocd/applicationsets/tools/argocd.yaml"
 root_app="$(git rev-parse --show-toplevel)/argocd/applications/root.yaml"
 
-namespace="$(yq -r .metadata.namespace "$argo_appset")"
-chart_repo="$(yq -r .spec.template.spec.source.repoURL "$argo_appset")"
-chart_name="$(yq -r .spec.template.spec.source.chart "$argo_appset")"
-chart_version="$(yq -r .spec.template.spec.source.targetRevision "$argo_appset")"
-helm_release="$(yq -r .spec.template.spec.source.helm.releaseName "$argo_appset")"
+namespace="$(yq -r ".metadata.namespace" "$argo_appset")"
+chart_repo="$(yq -r ".spec.template.spec.sources[1].repoURL" "$argo_appset")"
+chart_name="$(yq -r ".spec.template.spec.sources[1].chart" "$argo_appset")"
+chart_version="$(yq -r ".spec.template.spec.sources[1].targetRevision" "$argo_appset")"
+helm_release="$(yq -r ".spec.template.spec.sources[1].helm.releaseName" "$argo_appset")"
 
 # Install ArgoCD
 install_argo() {

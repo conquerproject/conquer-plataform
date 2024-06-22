@@ -15,12 +15,18 @@ spec:
       name: "argocd-{{ clusterName }}"
     spec:
       project: "default"
-      source:
-        repoURL: "https://argoproj.github.io/argo-helm"
-        chart: "argo-cd"
-        targetRevision: "6.1"
-        helm:
-          releaseName: "argocd"
+      sources:
+        - repoURL: "https://github.com/conquerproject/conquer-platform.git"
+          targetRevision: "{{ revision }}"
+          ref: valuesRepo
+
+        - repoURL: "https://argoproj.github.io/argo-helm"
+          chart: "argo-cd"
+          targetRevision: "6.1"
+          helm:
+            releaseName: "argocd"
+            valueFiles:
+              - $valuesRepo/argocd/default-charts-values/argocd/values.yaml
 
       destination:
         server: "{{ server }}"
