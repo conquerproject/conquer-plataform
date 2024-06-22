@@ -7,7 +7,7 @@ spec:
   generators:
     - git:
         repoURL: "https://github.com/conquerproject/conquer-platform.git"
-        revision: "feat/deploy-argocd-#15"
+        revision: "main"
         files:
           - path: "argocd/clusters/aks-conquer-dev-eastus-001.yaml"
   template:
