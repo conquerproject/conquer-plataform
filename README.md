@@ -1,5 +1,10 @@
-# conquer-platform
-Welcome to the Conquer Project! In this collaborative effort, three enthusiastic colleagues come together to tackle the challenge of creating a cutting-edge Cloud Platform and the applications that will run on top of it.
+# Conquer Project
+
+Welcome to the Conquer Project! I decided to tackle the challenge of creating a cutting-edge Cloud Platform and to develop the applications that will run on it. This project aims to learn and get my hands dirty by applying DevOps practices and getting experience with what we have best in the engineering community.
+
+## About this Repo
+
+This repository is the core of the Conquer Project. It employs GitOps practices to manage and configure the entire cloud infrastructure through code, covering all operational aspects, like continuous deployment and observability.
 
 ## Installation
 
