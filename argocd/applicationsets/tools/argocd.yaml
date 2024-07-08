@@ -26,7 +26,7 @@ spec:
           helm:
             releaseName: "argocd"
             valueFiles:
-              - $valuesRepo/argocd/default-charts-values/argocd/values.yaml
+              - $valuesRepo/argocd/defaults/argocd/values.yaml
 
       destination:
         server: "{{ server }}"
