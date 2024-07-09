@@ -15,3 +15,6 @@
 # Ignore CLI configuration files
 .terragrunt.d/
 
+# Ignore k8s secret manifests
+# TODO: create sealed-secret
+argocd/defaults/external-dns/manifests/secrets/
