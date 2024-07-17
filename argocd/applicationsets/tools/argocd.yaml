@@ -28,6 +28,12 @@ spec:
             valueFiles:
               - $valuesRepo/argocd/defaults/argocd/values.yaml
 
+        - repoURL: "https://github.com/conquerproject/conquer-platform.git"
+          targetRevision: "{{ revision }}"
+          path: argocd/defaults/argocd/manifests
+          directory:
+            recurse: true
+
       destination:
         server: "{{ server }}"
         namespace: "argocd"
