@@ -26,7 +26,7 @@ bootstrap_platform() {
 
     # Add azure credentials for external-dns
     # TODO: create sealed-secret
-    k apply -f "$(git rev-parse --show-toplevel)/argocd/defaults/external-dns/manifests/secrets/"
+    kubectl apply -f "$(git rev-parse --show-toplevel)/argocd/defaults/external-dns/manifests/secrets/"
 }
 
 destroy_platform() {
