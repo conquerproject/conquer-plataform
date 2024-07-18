@@ -1,0 +1,11 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: external-dns-deny-ingress
+  namespace: kube-tools
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: external-dns
+  policyTypes:
+    - Ingress
