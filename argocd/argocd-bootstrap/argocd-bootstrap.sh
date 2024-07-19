@@ -12,11 +12,13 @@ namespace="$(yq -r ".metadata.namespace" "$argo_appset")"
 chart_repo="$(yq -r ".spec.template.spec.sources[1].repoURL" "$argo_appset")"
 chart_name="$(yq -r ".spec.template.spec.sources[1].chart" "$argo_appset")"
 chart_version="$(yq -r ".spec.template.spec.sources[1].targetRevision" "$argo_appset")"
+chart_values="$(git rev-parse --show-toplevel)/argocd/defaults/argocd/values.yaml"
 helm_release="$(yq -r ".spec.template.spec.sources[1].helm.releaseName" "$argo_appset")"
 
 # Install ArgoCD
 install_argo() {
     helm upgrade "$helm_release" "$chart_name" --install \
+      --values "$chart_values" \
       --version "$chart_version" \
       --dependency-update \
       --description "ArgoCD" \
