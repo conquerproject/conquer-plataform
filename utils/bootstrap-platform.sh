@@ -26,7 +26,9 @@ bootstrap_platform() {
 
     # Add azure credentials for external-dns
     # TODO: create sealed-secret
+    sleep 30
     kubectl apply -f "$(git rev-parse --show-toplevel)/argocd/defaults/external-dns/manifests/secrets/"
+    kubectl delete pod -n kube-tools -l app.kubernetes.io/instance=external-dns
 }
 
 destroy_platform() {
