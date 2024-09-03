@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: "grafana"
+  namespace: "argocd"
+spec:
+  generators:
+    - git:
+        repoURL: "https://github.com/conquerproject/conquer-platform.git"
+        revision: "main"
+        files:
+          - path: "argocd/clusters/aks-conquerproject-dev-01.yaml"
+  template:
+    metadata:
+      name: "grafana-{{ clusterName }}"
+    spec:
+      project: "kube-tools"
+      sources:
+        - repoURL: "https://github.com/conquerproject/conquer-platform.git"
+          targetRevision: "{{ revision }}"
+          ref: valuesRepo
+
+        - repoURL: "https://grafana.github.io/helm-charts"
+          chart: "grafana"
+          targetRevision: "8.5"
+          helm:
+            releaseName: "grafana"
+            valueFiles:
+              - $valuesRepo/argocd/defaults/grafana-stack/grafana/values.yaml
+
+      destination:
+        server: "{{ server }}"
+        namespace: "kube-tools"
+
+      syncPolicy:
+        automated: {}
+        syncOptions:
+          - "CreateNamespace=true"
