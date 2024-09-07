@@ -1,0 +1,54 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: "istio"
+  namespace: "argocd"
+spec:
+  generators:
+    - git:
+        repoURL: "https://github.com/conquerproject/conquer-platform.git"
+        revision: "main"
+        files:
+          - path: "argocd/clusters/aks-conquerproject-dev-01.yaml"
+  template:
+    metadata:
+      name: "istio-{{ clusterName }}"
+    spec:
+      project: "kube-tools"
+      sources:
+        - repoURL: "https://github.com/conquerproject/conquer-platform.git"
+          targetRevision: "{{ revision }}"
+          ref: valuesRepo
+
+        - repoURL: "https://istio-release.storage.googleapis.com/charts"
+          chart: "base"
+          targetRevision: "1.23"
+          helm:
+            releaseName: "istio-gateway"
+            valueFiles:
+              - $valuesRepo/argocd/defaults/istio-base/values.yaml
+
+        - repoURL: "https://istio-release.storage.googleapis.com/charts"
+          chart: "istiod"
+          targetRevision: "1.23"
+          helm:
+            releaseName: "istio-gateway"
+            valueFiles:
+              - $valuesRepo/argocd/defaults/istio-control/values.yaml
+
+        - repoURL: "https://istio-release.storage.googleapis.com/charts"
+          chart: "gateway"
+          targetRevision: "1.23"
+          helm:
+            releaseName: "istio-gateway"
+            valueFiles:
+              - $valuesRepo/argocd/defaults/istio-gateway/values.yaml
+
+      destination:
+        server: "{{ server }}"
+        namespace: "istio-system"
+
+      syncPolicy:
+        automated: {}
+        syncOptions:
+          - "CreateNamespace=true"

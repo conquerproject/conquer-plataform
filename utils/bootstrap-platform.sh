@@ -21,12 +21,16 @@ bootstrap_platform() {
     terragrunt --terragrunt-config "$TERRAGRUNT_CONFIG" apply --auto-approve
     az aks get-credentials --resource-group "$RESOURCE_GROUP" --name "$AKS_NAME" --overwrite-existing --admin
 
+    # Apply  Gateway API CRDs
+    # TODO: Move it to argo
+    kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd?ref=v1.1.0" | kubectl apply -f -
+
     printf "Deploying ArgoCD...\n\n"
     bash "$BOOTSTRAP_ARGOCD"
+    sleep 30
 
     # Add azure credentials for external-dns
     # TODO: create sealed-secret
-    sleep 30
     kubectl apply -f "$(git rev-parse --show-toplevel)/argocd/defaults/external-dns/manifests/secrets/"
     kubectl delete pod -n kube-tools -l app.kubernetes.io/instance=external-dns
 }
