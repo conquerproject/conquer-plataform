@@ -9,3 +9,15 @@ extraVolumeMounts:
   - name: azure-config-file
     mountPath: /etc/kubernetes
     readOnly: true
+
+rbac:
+  additionalPermissions:
+    - apiGroups: [""]
+      resources: ["namespaces"]
+      verbs: ["get","watch","list"]
+    - apiGroups: ["gateway.networking.k8s.io"]
+      resources: ["gateways","httproutes"]
+      verbs: ["get","watch","list"]
+
+extraArgs:
+  - --source=gateway-httproute

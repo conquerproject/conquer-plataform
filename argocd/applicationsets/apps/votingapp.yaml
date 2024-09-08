@@ -21,6 +21,7 @@ spec:
         path: votingapp/k8s-manifests
         directory:
           recurse: true
+          exclude: '{*/ingress.yaml}'
 
       destination:
         server: "{{ server }}"

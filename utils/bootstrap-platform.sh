@@ -24,8 +24,9 @@ bootstrap_platform() {
     # Apply  Gateway API CRDs
     # TODO: Move it to argo
     kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd?ref=v1.1.0" | kubectl apply -f -
+    printf "\n\n"
 
-    printf "Deploying ArgoCD...\n\n"
+    printf "Deploying ArgoCD...\n"
     bash "$BOOTSTRAP_ARGOCD"
     sleep 30
 
