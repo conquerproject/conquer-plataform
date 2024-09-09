@@ -1,0 +1,30 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: istio-gateway
+  namespace: istio-system
+  annotations:
+    service.beta.kubernetes.io/port_80_no_probe_rule: "true" # FOR AZURE
+spec:
+  gatewayClassName: istio
+  listeners:
+    - name: default
+      port: 80
+      protocol: HTTP
+      allowedRoutes:
+        namespaces:
+          from: All
+    - name: vote-service
+      protocol: HTTPS
+      port: 443
+      hostname: vote.conquerproject.io
+      tls:
+        mode: Terminate
+        certificateRefs:
+        - kind: Secret
+          group: ""
+          name: vote-cert
+          namespace: votingapp
+      allowedRoutes:
+        namespaces:
+          from: All

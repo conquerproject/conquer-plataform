@@ -3,11 +3,13 @@ provider "azurerm" {
 }
 
 resource "azurerm_kubernetes_cluster" "aks" {
-  name                = var.aks_name
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  dns_prefix          = var.aks_name
-  kubernetes_version  = var.k8s_version
+  name                      = var.aks_name
+  location                  = var.location
+  resource_group_name       = var.resource_group_name
+  dns_prefix                = var.aks_name
+  kubernetes_version        = var.k8s_version
+  oidc_issuer_enabled       = true
+  workload_identity_enabled = true
   network_profile {
     network_plugin      = var.network_plugin
     network_plugin_mode = var.network_plugin_mode

@@ -1,0 +1,20 @@
+# clusterissuer-lets-encrypt-staging.yaml
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: benhur.araujo.silva@gmail.com
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    solvers:
+    - dns01:
+        azureDNS:
+          resourceGroupName: rg-conquerplatform-dev-01
+          subscriptionID: 907cde31-ecc8-45c6-adb3-3c86455c885b
+          hostedZoneName: conquerproject.io
+          environment: AzurePublicCloud
+          managedIdentity:
+            clientID: "c960400b-ead5-407f-86f9-028a4a351336"

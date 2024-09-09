@@ -6,3 +6,10 @@ podLabels:
 serviceAccount:
   labels:
     azure.workload.identity/use: "true"
+
+# Integrate cert-mananager with k8s GW API
+# https://cert-manager.io/docs/usage/gateway/
+config:
+  apiVersion: controller.config.cert-manager.io/v1alpha1
+  kind: ControllerConfiguration
+  enableGatewayAPI: true

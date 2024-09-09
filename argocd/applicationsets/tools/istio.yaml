@@ -43,6 +43,11 @@ spec:
             releaseName: "istio-gateway"
             valueFiles:
               - $valuesRepo/argocd/defaults/istio-gateway/values.yaml
+        - repoURL: "https://github.com/conquerproject/conquer-platform.git"
+          targetRevision: "{{ revision }}"
+          path: argocd/defaults/istio-gateway/manifests/
+          directory:
+            recurse: true
 
       destination:
         server: "{{ server }}"
