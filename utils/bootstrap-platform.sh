@@ -52,12 +52,8 @@ bootstrap_platform() {
     # Create kubeconfig file
     az aks get-credentials --resource-group "$RESOURCE_GROUP" --name "$AKS_NAME" --overwrite-existing --admin
 
-    # Apply  Gateway API CRDs
-    # TODO: Move it to argo
-    kubectl kustomize "github.com/kubernetes-sigs/gateway-api/config/crd?ref=v1.1.0" | kubectl apply -f -
-    printf "\n\n"
-
-    printf "Deploying ArgoCD...\n"
+    # Deploy ArgoCD
+    printf "\n\n" && printf "Deploying ArgoCD...\n"
     bash "$BOOTSTRAP_ARGOCD"
     sleep 30
 

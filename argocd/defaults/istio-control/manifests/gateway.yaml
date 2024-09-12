@@ -1,0 +1,29 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: conquer-gw
+  namespace: istio-system
+  annotations:
+    service.beta.kubernetes.io/port_80_no_probe_rule: "true" # Disable AZ LB health checks
+    service.beta.kubernetes.io/port_443_no_probe_rule: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  gatewayClassName: istio
+  listeners:
+    - name: http
+      port: 80
+      protocol: HTTP
+      allowedRoutes:
+        namespaces:
+          from: All
+    - name: https
+      protocol: HTTPS
+      port: 443
+      hostname: "*.conquerproject.io"
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: conquerproject-io-certficate
+      allowedRoutes:
+        namespaces:
+          from: All

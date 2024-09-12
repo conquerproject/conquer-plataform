@@ -16,36 +16,28 @@ spec:
     spec:
       project: "kube-tools"
       sources:
+        # Install Kubernetes Gateway API CRDs
+        - repoURL: "https://github.com/kubernetes-sigs/gateway-api"
+          targetRevision: "v1.1.0"
+          path: "config/crd/"
+
         - repoURL: "https://github.com/conquerproject/conquer-platform.git"
           targetRevision: "{{ revision }}"
           ref: valuesRepo
 
-        - repoURL: "https://istio-release.storage.googleapis.com/charts"
-          chart: "base"
-          targetRevision: "1.23"
-          helm:
-            releaseName: "istio-gateway"
-            valueFiles:
-              - $valuesRepo/argocd/defaults/istio-base/values.yaml
-
+        # Install Istio controller
         - repoURL: "https://istio-release.storage.googleapis.com/charts"
           chart: "istiod"
           targetRevision: "1.23"
           helm:
-            releaseName: "istio-gateway"
+            releaseName: "istio-control"
             valueFiles:
               - $valuesRepo/argocd/defaults/istio-control/values.yaml
 
-        - repoURL: "https://istio-release.storage.googleapis.com/charts"
-          chart: "gateway"
-          targetRevision: "1.23"
-          helm:
-            releaseName: "istio-gateway"
-            valueFiles:
-              - $valuesRepo/argocd/defaults/istio-gateway/values.yaml
+        # Install addicional istio-related Objects. E.g: gateway
         - repoURL: "https://github.com/conquerproject/conquer-platform.git"
           targetRevision: "{{ revision }}"
-          path: argocd/defaults/istio-gateway/manifests/
+          path: argocd/defaults/istio-control/manifests/
           directory:
             recurse: true
 
