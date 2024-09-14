@@ -17,4 +17,4 @@ spec:
           hostedZoneName: conquerproject.io
           environment: AzurePublicCloud
           managedIdentity:
-            clientID: "c960400b-ead5-407f-86f9-028a4a351336"
+            clientID: "1933b4ac-f603-4f20-ae40-17b7cc82b7a4"
