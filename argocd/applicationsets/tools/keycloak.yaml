@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: "keycloak"
+  namespace: "argocd"
+spec:
+  generators:
+    - git:
+        repoURL: "https://github.com/conquerproject/conquer-platform.git"
+        revision: "main"
+        files:
+          - path: "argocd/clusters/aks-conquerproject-dev-01.yaml"
+  template:
+    metadata:
+      name: "keycloak-{{ clusterName }}"
+    spec:
+      project: "kube-tools"
+      sources:
+        - repoURL: "https://github.com/conquerproject/conquer-platform.git"
+          targetRevision: "{{ revision }}"
+          path: argocd/defaults/keycloak/manifests/
+          directory:
+            recurse: true
+
+      destination:
+        server: "{{ server }}"
+        namespace: "keycloak"
+
+      syncPolicy:
+        automated: {}
+        syncOptions:
+          - "CreateNamespace=true"
